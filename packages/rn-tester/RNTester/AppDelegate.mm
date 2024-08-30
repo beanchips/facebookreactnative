@@ -90,7 +90,7 @@ static NSString *kBundlePath = @"js/RNTesterApp.ios";
     return std::make_shared<facebook::react::NativeCxxModuleExample>(jsInvoker);
   }
 
-  return [super getTurboModule:name jsInvoker:jsInvoker];
+  return [super.reactNativeFactory getTurboModule:name jsInvoker:jsInvoker];
 }
 
 // Required for the remoteNotificationsRegistered event.
@@ -139,10 +139,11 @@ static NSString *kBundlePath = @"js/RNTesterApp.ios";
 
 #pragma mark - New Arch Enabled settings
 
-- (BOOL)bridgelessEnabled
-{
-  return [super bridgelessEnabled];
-}
+// Should we support this?
+//- (BOOL)bridgelessEnabled
+//{
+//  return [super bridgelessEnabled];
+//}
 
 #pragma mark - RCTComponentViewFactoryComponentProvider
 

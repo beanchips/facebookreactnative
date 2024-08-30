@@ -83,35 +83,6 @@ using namespace facebook::react;
   [_window makeKeyAndVisible];
 }
 
-- (void)applicationDidEnterBackground:(UIApplication *)application
-{
-  // Noop
-}
-
-- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
-{
-  [NSException raise:@"RCTBridgeDelegate::sourceURLForBridge not implemented"
-              format:@"Subclasses must implement a valid sourceURLForBridge method"];
-  return nil;
-}
-
-- (RCTBridge *)createBridgeWithDelegate:(id<RCTBridgeDelegate>)delegate launchOptions:(NSDictionary *)launchOptions
-{
-  return [[RCTBridge alloc] initWithDelegate:delegate launchOptions:launchOptions];
-}
-
-- (UIView *)createRootViewWithBridge:(RCTBridge *)bridge
-                          moduleName:(NSString *)moduleName
-                           initProps:(NSDictionary *)initProps
-{
-  BOOL enableFabric = self.fabricEnabled;
-  UIView *rootView = RCTAppSetupDefaultRootView(bridge, moduleName, initProps, enableFabric);
-
-  rootView.backgroundColor = [UIColor systemBackgroundColor];
-
-  return rootView;
-}
-
 - (UIViewController *)createRootViewController
 {
   return [UIViewController new];
@@ -120,11 +91,6 @@ using namespace facebook::react;
 - (void)setRootView:(UIView *)rootView toRootViewController:(UIViewController *)rootViewController
 {
   rootViewController.view = rootView;
-}
-
-- (void)customizeRootView:(RCTRootView *)rootView
-{
-  // Override point for customization after application launch.
 }
 
 #pragma mark - UISceneDelegate
@@ -137,39 +103,13 @@ using namespace facebook::react;
   [[NSNotificationCenter defaultCenter] postNotificationName:RCTWindowFrameDidChangeNotification object:self];
 }
 
-- (RCTColorSpace)defaultColorSpace
-{
-  return RCTColorSpaceSRGB;
+- (NSURL * _Nullable)sourceURLForBridge:(nonnull RCTBridge *)bridge {
+  [NSException raise:@"RCTBridgeDelegate::sourceURLForBridge not implemented"
+              format:@"Subclasses must implement a valid sourceURLForBridge method"];
+  return nil;
 }
 
-#pragma mark - New Arch Enabled settings
-
-- (BOOL)newArchEnabled
-{
-#if RCT_NEW_ARCH_ENABLED
-  return YES;
-#else
-  return NO;
-#endif
-}
-
-- (BOOL)turboModuleEnabled
-{
-  return [self newArchEnabled];
-}
-
-- (BOOL)fabricEnabled
-{
-  return [self newArchEnabled];
-}
-
-- (BOOL)bridgelessEnabled
-{
-  return [self newArchEnabled];
-}
-
-- (NSURL *)bundleURL
-{
+- (NSURL * _Nullable)bundleURL {
   [NSException raise:@"RCTAppDelegate::bundleURL not implemented"
               format:@"Subclasses must implement a valid getBundleURL method"];
   return nullptr;
