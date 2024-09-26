@@ -41,30 +41,30 @@ RCT_EXPORT_MODULE();
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
-  if ((self = [super initWithFrame:frame])) {
-    _sizeUpdated = NO;
-
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-
-    _resizableRootView =
-        (RCTRootView *)[appDelegate.rootViewFactory viewWithModuleName:@"RootViewSizeFlexibilityExampleApp"];
-
-    [_resizableRootView setSizeFlexibility:RCTRootViewSizeFlexibilityHeight];
-
-    _currentSizeTextView = [UITextView new];
-#ifndef TARGET_OS_TV
-    _currentSizeTextView.editable = NO;
-#endif
-    _currentSizeTextView.text = @"Resizable view has not been resized yet";
-    _currentSizeTextView.textColor = [UIColor blackColor];
-    _currentSizeTextView.backgroundColor = [UIColor whiteColor];
-    _currentSizeTextView.font = [UIFont boldSystemFontOfSize:10];
-
-    _resizableRootView.delegate = self;
-
-    [self addSubview:_currentSizeTextView];
-    [self addSubview:_resizableRootView];
-  }
+//  if ((self = [super initWithFrame:frame])) {
+//    _sizeUpdated = NO;
+//
+//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//
+//    _resizableRootView =
+//        (RCTRootView *)[appDelegate.rootViewFactory viewWithModuleName:@"RootViewSizeFlexibilityExampleApp"];
+//
+//    [_resizableRootView setSizeFlexibility:RCTRootViewSizeFlexibilityHeight];
+//
+//    _currentSizeTextView = [UITextView new];
+//#ifndef TARGET_OS_TV
+//    _currentSizeTextView.editable = NO;
+//#endif
+//    _currentSizeTextView.text = @"Resizable view has not been resized yet";
+//    _currentSizeTextView.textColor = [UIColor blackColor];
+//    _currentSizeTextView.backgroundColor = [UIColor whiteColor];
+//    _currentSizeTextView.font = [UIFont boldSystemFontOfSize:10];
+//
+//    _resizableRootView.delegate = self;
+//
+//    [self addSubview:_currentSizeTextView];
+//    [self addSubview:_resizableRootView];
+//  }
   return self;
 }
 

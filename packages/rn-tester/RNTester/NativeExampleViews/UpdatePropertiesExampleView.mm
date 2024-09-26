@@ -39,20 +39,20 @@ RCT_EXPORT_MODULE();
   if (self) {
     _beige = YES;
 
-    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-
-    _rootView = (RCTRootView *)[appDelegate.rootViewFactory viewWithModuleName:@"SetPropertiesExampleApp"
-                                                             initialProperties:@{@"color" : @"beige"}];
-
-    _button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [_button setTitle:@"Native Button" forState:UIControlStateNormal];
-    [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [_button setBackgroundColor:[UIColor grayColor]];
-
-    [_button addTarget:self action:@selector(changeColor) forControlEvents:UIControlEventTouchUpInside];
-
-    [self addSubview:_button];
-    [self addSubview:_rootView];
+//    AppDelegate *appDelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+//
+//    _rootView = (RCTRootView *)[appDelegate.rootViewFactory viewWithModuleName:@"SetPropertiesExampleApp"
+//                                                             initialProperties:@{@"color" : @"beige"}];
+//
+//    _button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+//    [_button setTitle:@"Native Button" forState:UIControlStateNormal];
+//    [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [_button setBackgroundColor:[UIColor grayColor]];
+//
+//    [_button addTarget:self action:@selector(changeColor) forControlEvents:UIControlEventTouchUpInside];
+//
+//    [self addSubview:_button];
+//    [self addSubview:_rootView];
   }
   return self;
 }

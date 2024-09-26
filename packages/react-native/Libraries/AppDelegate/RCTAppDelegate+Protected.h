@@ -8,9 +8,9 @@
 #if defined(__cplusplus)
 
 #import <ReactCommon/RCTTurboModuleManager.h>
-#import "RCTAppDelegate.h"
+#import "RCTReactNativeFactory.h"
 
-@interface RCTAppDelegate () <RCTTurboModuleManagerDelegate>
+@interface RCTReactNativeFactory () <RCTTurboModuleManagerDelegate>
 @end
 
 #endif
