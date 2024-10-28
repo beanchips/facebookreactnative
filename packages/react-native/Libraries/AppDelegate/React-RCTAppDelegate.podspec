@@ -73,7 +73,6 @@ Pod::Spec.new do |s|
   s.dependency "React-RCTNetwork"
   s.dependency "React-RCTImage"
   s.dependency "React-CoreModules"
-  s.dependency "React-nativeconfig"
   s.dependency "ReactCodegen"
   s.dependency "React-defaultsnativemodule"
 
