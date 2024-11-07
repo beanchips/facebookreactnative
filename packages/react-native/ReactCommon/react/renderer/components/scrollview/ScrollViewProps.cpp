@@ -380,6 +380,15 @@ ScrollViewProps::ScrollViewProps(
                     rawProps,
                     "isInvertedVirtualizedList",
                     sourceProps.isInvertedVirtualizedList,
+                    {})),
+      isReversedVirtualizedList(
+          CoreFeatures::enablePropIteratorSetter
+              ? sourceProps.isReversedVirtualizedList
+              : convertRawProp(
+                    context,
+                    rawProps,
+                    "isReversedVirtualizedList",
+                    sourceProps.isReversedVirtualizedList,
                     {})) {}
 
 void ScrollViewProps::setProp(
@@ -433,6 +442,7 @@ void ScrollViewProps::setProp(
     RAW_SET_PROP_SWITCH_CASE_BASIC(contentInsetAdjustmentBehavior);
     RAW_SET_PROP_SWITCH_CASE_BASIC(scrollToOverflowEnabled);
     RAW_SET_PROP_SWITCH_CASE_BASIC(isInvertedVirtualizedList);
+    RAW_SET_PROP_SWITCH_CASE_BASIC(isReversedVirtualizedList);
   }
 }
 
@@ -567,7 +577,11 @@ SharedDebugStringConvertibleList ScrollViewProps::getDebugProps() const {
           debugStringConvertibleItem(
               "isInvertedVirtualizedList",
               snapToEnd,
-              defaultScrollViewProps.isInvertedVirtualizedList)};
+              defaultScrollViewProps.isInvertedVirtualizedList),
+          debugStringConvertibleItem(
+              "isReversedVirtualizedList",
+              snapToEnd,
+              defaultScrollViewProps.isReversedVirtualizedList)};
 }
 #endif
 
