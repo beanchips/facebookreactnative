@@ -131,6 +131,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture CXX_ONLY_NATIVE_MODUL
           'memberType': 'StringTypeAnnotation',
           'members': [
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'SD',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -138,6 +139,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture CXX_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'HD',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -152,6 +154,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture CXX_ONLY_NATIVE_MODUL
           'memberType': 'NumberTypeAnnotation',
           'members': [
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'Low',
               'value': {
                 'type': 'NumberLiteralTypeAnnotation',
@@ -159,6 +162,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture CXX_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'High',
               'value': {
                 'type': 'NumberLiteralTypeAnnotation',
@@ -173,6 +177,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture CXX_ONLY_NATIVE_MODUL
           'memberType': 'StringTypeAnnotation',
           'members': [
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'One',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -180,6 +185,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture CXX_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'Two',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -187,6 +193,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture CXX_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'Three',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -472,6 +479,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture IOS_ONLY_NATIVE_MODUL
           'memberType': 'StringTypeAnnotation',
           'members': [
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'SD',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -479,6 +487,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture IOS_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'HD',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -493,6 +502,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture IOS_ONLY_NATIVE_MODUL
           'memberType': 'NumberTypeAnnotation',
           'members': [
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'Low',
               'value': {
                 'type': 'NumberLiteralTypeAnnotation',
@@ -500,6 +510,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture IOS_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'High',
               'value': {
                 'type': 'NumberLiteralTypeAnnotation',
@@ -514,6 +525,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture IOS_ONLY_NATIVE_MODUL
           'memberType': 'StringTypeAnnotation',
           'members': [
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'One',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -521,6 +533,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture IOS_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'Two',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
@@ -528,6 +541,7 @@ exports[`RN Codegen TypeScript Parser can generate fixture IOS_ONLY_NATIVE_MODUL
               }
             },
             {
+              'type': 'EnumDeclarationMemberTypeAnnotation',
               'name': 'Three',
               'value': {
                 'type': 'StringLiteralTypeAnnotation',
