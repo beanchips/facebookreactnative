@@ -373,6 +373,7 @@ public class com/facebook/react/ReactRootView : android/widget/FrameLayout, com/
 	protected fun dispatchJSPointerEvent (Landroid/view/MotionEvent;Z)V
 	protected fun dispatchJSTouchEvent (Landroid/view/MotionEvent;)V
 	public fun dispatchKeyEvent (Landroid/view/KeyEvent;)Z
+	protected fun drawChild (Landroid/graphics/Canvas;Landroid/view/View;J)Z
 	protected fun finalize ()V
 	public fun getAppProperties ()Landroid/os/Bundle;
 	public fun getCurrentReactContext ()Lcom/facebook/react/bridge/ReactContext;
@@ -4101,6 +4102,12 @@ public abstract class com/facebook/react/uimanager/BaseViewManagerDelegate : com
 	public fun <init> (Lcom/facebook/react/uimanager/BaseViewManager;)V
 	public fun receiveCommand (Landroid/view/View;Ljava/lang/String;Lcom/facebook/react/bridge/ReadableArray;)V
 	public fun setProperty (Landroid/view/View;Ljava/lang/String;Ljava/lang/Object;)V
+}
+
+public final class com/facebook/react/uimanager/BlendModeHelper {
+	public static final field INSTANCE Lcom/facebook/react/uimanager/BlendModeHelper;
+	public static final fun needsIsolatedLayer (Landroid/view/ViewGroup;)Z
+	public static final fun parseMixBlendMode (Ljava/lang/String;)Landroid/graphics/BlendMode;
 }
 
 public abstract interface class com/facebook/react/uimanager/ComponentNameResolver {
