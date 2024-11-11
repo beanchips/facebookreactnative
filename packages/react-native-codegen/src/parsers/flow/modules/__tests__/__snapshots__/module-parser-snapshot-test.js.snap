@@ -141,11 +141,17 @@ exports[`RN Codegen Flow Parser can generate fixture CXX_ONLY_NATIVE_MODULE 1`] 
           'members': [
             {
               'name': 'SD',
-              'value': 'SD'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'SD'
+              }
             },
             {
               'name': 'HD',
-              'value': 'HD'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'HD'
+              }
             }
           ]
         },
@@ -156,11 +162,17 @@ exports[`RN Codegen Flow Parser can generate fixture CXX_ONLY_NATIVE_MODULE 1`] 
           'members': [
             {
               'name': 'Low',
-              'value': 720
+              'value': {
+                'type': 'NumberLiteralTypeAnnotation',
+                'value': 720
+              }
             },
             {
               'name': 'High',
-              'value': 1080
+              'value': {
+                'type': 'NumberLiteralTypeAnnotation',
+                'value': 1080
+              }
             }
           ]
         },
@@ -171,15 +183,24 @@ exports[`RN Codegen Flow Parser can generate fixture CXX_ONLY_NATIVE_MODULE 1`] 
           'members': [
             {
               'name': 'One',
-              'value': 'one'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'one'
+              }
             },
             {
               'name': 'Two',
-              'value': 'two'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'two'
+              }
             },
             {
               'name': 'Three',
-              'value': 'three'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'three'
+              }
             }
           ]
         }
@@ -461,11 +482,17 @@ exports[`RN Codegen Flow Parser can generate fixture IOS_ONLY_NATIVE_MODULE 1`] 
           'members': [
             {
               'name': 'SD',
-              'value': 'SD'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'SD'
+              }
             },
             {
               'name': 'HD',
-              'value': 'HD'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'HD'
+              }
             }
           ]
         },
@@ -476,11 +503,17 @@ exports[`RN Codegen Flow Parser can generate fixture IOS_ONLY_NATIVE_MODULE 1`] 
           'members': [
             {
               'name': 'Low',
-              'value': 720
+              'value': {
+                'type': 'NumberLiteralTypeAnnotation',
+                'value': 720
+              }
             },
             {
               'name': 'High',
-              'value': 1080
+              'value': {
+                'type': 'NumberLiteralTypeAnnotation',
+                'value': 1080
+              }
             }
           ]
         },
@@ -491,15 +524,24 @@ exports[`RN Codegen Flow Parser can generate fixture IOS_ONLY_NATIVE_MODULE 1`] 
           'members': [
             {
               'name': 'One',
-              'value': 'one'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'one'
+              }
             },
             {
               'name': 'Two',
-              'value': 'two'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'two'
+              }
             },
             {
               'name': 'Three',
-              'value': 'three'
+              'value': {
+                'type': 'StringLiteralTypeAnnotation',
+                'value': 'three'
+              }
             }
           ]
         }
