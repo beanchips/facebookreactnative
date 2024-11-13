@@ -226,10 +226,29 @@ class TypeScriptParser implements Parser {
   parseEnumMembers(
     typeAnnotation: $FlowFixMe,
   ): $ReadOnlyArray<NativeModuleEnumMember> {
-    return typeAnnotation.members.map(member => ({
-      name: member.id.name,
-      value: member.initializer?.value ?? member.id.name,
-    }));
+    return typeAnnotation.members.map(member => {
+      const value =
+        typeof member.initializer?.value === 'number'
+          ? {
+              type: 'NumberLiteralTypeAnnotation',
+              value: member.initializer?.value,
+            }
+          : typeof member.initializer?.value === 'string'
+          ? {
+              type: 'StringLiteralTypeAnnotation',
+              value: member.initializer?.value,
+            }
+          : {
+              type: 'StringLiteralTypeAnnotation',
+              value: member.id.name,
+            };
+
+      return ({
+        type: 'EnumDeclarationMemberTypeAnnotation',
+        name: member.id.name,
+        value: value,
+      }: NativeModuleEnumMember);
+    });
   }
 
   isModuleInterface(node: $FlowFixMe): boolean {
