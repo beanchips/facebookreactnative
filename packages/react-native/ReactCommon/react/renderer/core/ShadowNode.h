@@ -61,6 +61,8 @@ class ShadowNode : public Sealable,
     return ShadowNodeTraits{};
   }
 
+  static void setUseRuntimeShadowNodeReferenceUpdate(bool isEnabled);
+
 #pragma mark - Constructors
 
   /*

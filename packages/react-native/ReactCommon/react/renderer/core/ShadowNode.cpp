@@ -20,6 +20,8 @@
 
 namespace facebook::react {
 
+thread_local bool useRuntimeShadowNodeReferenceUpdate{false};
+
 ShadowNode::SharedListOfShared ShadowNode::emptySharedShadowNodeSharedList() {
   static const auto emptySharedShadowNodeSharedList =
       std::make_shared<ShadowNode::ListOfShared>();
@@ -54,6 +56,10 @@ Props::Shared ShadowNode::propsForClonedShadowNode(
 
 bool ShadowNode::sameFamily(const ShadowNode& first, const ShadowNode& second) {
   return first.family_ == second.family_;
+}
+
+void ShadowNode::setUseRuntimeShadowNodeReferenceUpdate(bool isEnabled) {
+  useRuntimeShadowNodeReferenceUpdate = isEnabled;
 }
 
 #pragma mark - Constructors
@@ -308,7 +314,8 @@ void ShadowNode::transferRuntimeShadowNodeReference(
 void ShadowNode::transferRuntimeShadowNodeReference(
     const Shared& destinationShadowNode,
     const ShadowNodeFragment& fragment) const {
-  if (fragment.runtimeShadowNodeReference &&
+  if (useRuntimeShadowNodeReferenceUpdate &&
+      fragment.runtimeShadowNodeReference &&
       ReactNativeFeatureFlags::useRuntimeShadowNodeReferenceUpdate()) {
     transferRuntimeShadowNodeReference(destinationShadowNode);
   }
