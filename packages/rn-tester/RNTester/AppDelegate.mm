@@ -139,11 +139,10 @@ static NSString *kBundlePath = @"js/RNTesterApp.ios";
 
 #pragma mark - New Arch Enabled settings
 
-// Should we support this?
-//- (BOOL)bridgelessEnabled
-//{
-//  return [super bridgelessEnabled];
-//}
+- (BOOL)bridgelessEnabled
+{
+  return [super bridgelessEnabled];
+}
 
 #pragma mark - RCTComponentViewFactoryComponentProvider
 

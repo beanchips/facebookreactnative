@@ -8,9 +8,9 @@
 #import <React/RCTBridgeDelegate.h>
 #import <React/RCTConvert.h>
 #import <UIKit/UIKit.h>
-#import "RCTArchConfiguratorProtocol.h"
 #import "RCTRootViewFactory.h"
-#import "RCTUIConfiguratorProtocol.h"
+#import "RCTReactNativeFactory.h"
+#import "RCTDefaultReactNativeFactoryDelegate.h"
 
 @class RCTBridge;
 @protocol RCTBridgeDelegate;
@@ -57,13 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
                                                          (const facebook::react::ObjCTurboModule::InitParams &)params
  *   - (id<RCTTurboModule>)getModuleInstanceFromClass:(Class)moduleClass
  */
-@interface RCTAppDelegate : UIResponder <
-                                UIApplicationDelegate,
-                                UISceneDelegate,
-                                RCTBridgeDelegate,
-                                RCTUIConfiguratorProtocol,
-                                ReactNativeFactoryDelegate,
-                                RCTArchConfiguratorProtocol>
+@interface RCTAppDelegate : RCTDefaultReactNativeFactoryDelegate <UIApplicationDelegate, UISceneDelegate>
 
 /// The window object, used to render the UViewControllers
 @property (nonatomic, strong, nonnull) UIWindow *window;
@@ -71,13 +65,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) RCTBridge *bridge;
 @property (nonatomic, strong, nullable) NSString *moduleName;
 @property (nonatomic, strong, nullable) NSDictionary *initialProps;
+@property (nonatomic, strong, nonnull) RCTRootViewFactory *rootViewFactory;
 
 @property (nonatomic, strong) RCTReactNativeFactory *reactNativeFactory;
 
+@property (nonatomic, nullable) RCTSurfacePresenterBridgeAdapter *bridgeAdapter;
+
 /// If `automaticallyLoadReactNativeWindow` is set to `true`, the React Native window will be loaded automatically.
 @property (nonatomic, assign) BOOL automaticallyLoadReactNativeWindow;
-
-@property (nonatomic, nullable) RCTSurfacePresenterBridgeAdapter *bridgeAdapter;
 
 @end
 

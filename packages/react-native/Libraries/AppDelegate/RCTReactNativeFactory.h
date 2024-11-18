@@ -9,6 +9,8 @@
 #import <React/RCTConvert.h>
 #import <UIKit/UIKit.h>
 #import "RCTRootViewFactory.h"
+#import "RCTUIConfiguratorProtocol.h"
+#import "RCTArchConfiguratorProtocol.h"
 
 @class RCTBridge;
 @protocol RCTBridgeDelegate;
@@ -18,7 +20,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ReactNativeFactoryDelegate <RCTBridgeDelegate>
+@protocol RCTReactNativeFactoryDelegate <RCTBridgeDelegate, RCTUIConfiguratorProtocol, RCTArchConfiguratorProtocol>
 
 /// Return the bundle URL for the main bundle.
 - (NSURL *__nullable)bundleURL;
@@ -51,31 +53,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIView *)createRootViewWithBridge:(RCTBridge *)bridge
                           moduleName:(NSString *)moduleName
                            initProps:(NSDictionary *)initProps;
-/**
- * This method can be used to customize the rootView that is passed to React Native.
- * A typical example is to override this method in the AppDelegate to change the background color.
- * To achieve this, add in your `AppDelegate.mm`:
- * ```
- * - (void)customizeRootView:(RCTRootView *)rootView
- * {
- *   rootView.backgroundColor = [UIColor colorWithDynamicProvider:^UIColor *(UITraitCollection *traitCollection) {
- *     if ([traitCollection userInterfaceStyle] == UIUserInterfaceStyleDark) {
- *       return [UIColor blackColor];
- *     } else {
- *       return [UIColor whiteColor];
- *     }
- *   }];
- * }
- * ```
- *
- * @parameter: rootView - The root view to customize.
- */
-- (void)customizeRootView:(RCTRootView *)rootView;
-
-/**
- * The default `RCTColorSpace` for the app. It defaults to `RCTColorSpaceSRGB`.
- */
-@property (nonatomic, readonly) RCTColorSpace defaultColorSpace;
 
 /// This method returns a map of Component Descriptors and Components classes that needs to be registered in the
 /// new renderer. The Component Descriptor is a string which represent the name used in JS to refer to the native
@@ -85,33 +62,14 @@ NS_ASSUME_NONNULL_BEGIN
 /// @return a dictionary that associate a component for the new renderer with his descriptor.
 - (NSDictionary<NSString *, Class<RCTComponentViewProtocol>> *)thirdPartyFabricComponents;
 
-/// This method controls whether the `turboModules` feature of the New Architecture is turned on or off.
-///
-/// @note: This is required to be rendering on Fabric (i.e. on the New Architecture).
-/// @return: `true` if the Turbo Native Module are enabled. Otherwise, it returns `false`.
-- (BOOL)turboModuleEnabled __attribute__((deprecated("Use newArchEnabled instead")));
 
-/// This method controls whether the App will use the Fabric renderer of the New Architecture or not.
-///
-/// @return: `true` if the Fabric Renderer is enabled. Otherwise, it returns `false`.
-- (BOOL)fabricEnabled __attribute__((deprecated("Use newArchEnabled instead")));
-
-/// This method controls whether React Native's new initialization layer is enabled.
-///
-/// @return: `true` if the new initialization layer is enabled. Otherwise returns `false`.
-- (BOOL)bridgelessEnabled __attribute__((deprecated("Use newArchEnabled instead")));
-
-/// This method controls whether React Native uses new Architecture.
-///
-/// @return: `true` if the new architecture is enabled. Otherwise returns `false`.
-- (BOOL)newArchEnabled;
 
 @end
 
 
 @interface RCTReactNativeFactory : NSObject
 
-- (instancetype)initWithDelegate:(id<ReactNativeFactoryDelegate>)delegate;
+- (instancetype)initWithDelegate:(id<RCTReactNativeFactoryDelegate>)delegate;
 
 @property (nonatomic, nullable) RCTBridge *bridge;
 @property (nonatomic, strong, nullable) NSString *moduleName;
@@ -120,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable) RCTSurfacePresenterBridgeAdapter *bridgeAdapter;
 
-@property (nonatomic, weak) id<ReactNativeFactoryDelegate> delegate;
+@property (nonatomic, weak) id<RCTReactNativeFactoryDelegate> delegate;
 
 @end
 

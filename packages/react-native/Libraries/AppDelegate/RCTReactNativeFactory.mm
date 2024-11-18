@@ -33,15 +33,26 @@
 #endif
 #import <react/nativemodule/defaults/DefaultTurboModules.h>
 
+#if __has_include(<ReactCodegen/RCTThirdPartyComponentsProvider.h>)
+#define USE_OSS_CODEGEN 1
+#import <ReactCodegen/RCTThirdPartyComponentsProvider.h>
+#else
+// Meta internal system do not generate the RCTModulesConformingToProtocolsProvider.h file
+#define USE_OSS_CODEGEN 0
+#endif
+
+using namespace facebook::react;
+
 @interface RCTReactNativeFactory () <RCTComponentViewFactoryComponentProvider, RCTHostDelegate>
 @end
 
 @implementation RCTReactNativeFactory
 
-- (instancetype)initWithDelegate:(id<ReactNativeFactoryDelegate>)delegate {
+- (instancetype)initWithDelegate:(id<RCTReactNativeFactoryDelegate>)delegate {
   if (self = [super init]) {
+    [self _setUpFeatureFlags];
     self.delegate = delegate;
-    
+
     RCTSetNewArchEnabled([self newArchEnabled]);
     [RCTColorSpaceUtils applyDefaultColorSpace:[self defaultColorSpace]];
     RCTEnableTurboModule([self turboModuleEnabled]);
@@ -71,72 +82,35 @@
 
 - (RCTBridge *)createBridgeWithDelegate:(id<RCTBridgeDelegate>)delegate launchOptions:(NSDictionary *)launchOptions
 {
-  if ([_delegate respondsToSelector:@selector(createBridgeWithDelegate:launchOptions:)]) {
-    return [_delegate createBridgeWithDelegate:delegate launchOptions:launchOptions];
-  }
-  
-  return [[RCTBridge alloc] initWithDelegate:delegate launchOptions:launchOptions];
+  return [_delegate createBridgeWithDelegate:delegate launchOptions:launchOptions];
 }
 
 - (UIView *)createRootViewWithBridge:(RCTBridge *)bridge
                           moduleName:(NSString *)moduleName
                            initProps:(NSDictionary *)initProps
 {
-  if ([_delegate respondsToSelector:@selector(createRootViewWithBridge:moduleName:initProps:)]) {
-    return [_delegate createRootViewWithBridge:bridge moduleName:moduleName initProps:initProps];
-  }
-  
-  BOOL enableFabric = self.delegate.fabricEnabled;
-  UIView *rootView = RCTAppSetupDefaultRootView(bridge, moduleName, initProps, enableFabric);
-
-  rootView.backgroundColor = [UIColor systemBackgroundColor];
-
-  return rootView;
+  return [_delegate createRootViewWithBridge:bridge moduleName:moduleName initProps:initProps];
 }
 
 - (RCTColorSpace)defaultColorSpace
 {
-  if ([_delegate respondsToSelector:@selector(defaultColorSpace)]) {
-    return [_delegate defaultColorSpace];
-  }
-  
-  return RCTColorSpaceSRGB;
+  return [_delegate defaultColorSpace];
 }
 
-
 - (BOOL)newArchEnabled {
-  if ([_delegate respondsToSelector:@selector(newArchEnabled)]) {
-    return _delegate.newArchEnabled;
-  }
-#if RCT_NEW_ARCH_ENABLED
-  return YES;
-#else
-  return NO;
-#endif
+   return _delegate.newArchEnabled;
 }
 
 - (BOOL)fabricEnabled {
-  if ([_delegate respondsToSelector:@selector(fabricEnabled)]) {
-    return _delegate.fabricEnabled;
-  }
-  
-  return [self newArchEnabled];
+  return _delegate.fabricEnabled;
 }
 
 - (BOOL)turboModuleEnabled {
-  if ([_delegate respondsToSelector:@selector(turboModuleEnabled)]) {
-    return _delegate.turboModuleEnabled;
-  }
-  
-  return [self newArchEnabled];
+  return _delegate.turboModuleEnabled;
 }
 
 - (BOOL)bridgelessEnabled {
-  if ([_delegate respondsToSelector:@selector(bridgelessEnabled)]) {
-    return _delegate.bridgelessEnabled;
-  }
-  
-  return [self newArchEnabled];
+  return _delegate.bridgelessEnabled;
 }
 
 #pragma mark - RCTTurboModuleManagerDelegate
@@ -159,7 +133,11 @@
 
 - (NSDictionary<NSString *, Class<RCTComponentViewProtocol>> *)thirdPartyFabricComponents
 {
+#if USE_OSS_CODEGEN
+  return [RCTThirdPartyComponentsProvider thirdPartyFabricComponents];
+#else
   return @{};
+#endif
 }
 
 #pragma mark - RCTHostDelegate
@@ -168,19 +146,11 @@
 {
 }
 
-- (void)host:(RCTHost *)host
-    didReceiveJSErrorStack:(NSArray<NSDictionary<NSString *, id> *> *)stack
-                   message:(NSString *)message
-               exceptionId:(NSUInteger)exceptionId
-                   isFatal:(BOOL)isFatal
-{
-}
-
 - (RCTRootViewFactory *)createRCTRootViewFactory
 {
   __weak __typeof(self) weakSelf = self;
   RCTBundleURLBlock bundleUrlBlock = ^{
-    RCTReactNativeFactory *strongSelf = weakSelf;
+    auto *strongSelf = weakSelf;
     return strongSelf.delegate.bundleURL;
   };
 
@@ -198,27 +168,14 @@
     return [weakSelf createBridgeWithDelegate:delegate launchOptions:launchOptions];
   };
 
-//  configuration.customizeRootView = ^(UIView *_Nonnull rootView) {
-//    [weakSelf customizeRootView:(RCTRootView *)rootView];
-//  };
+  configuration.customizeRootView = ^(UIView *_Nonnull rootView) {
+    [weakSelf.delegate customizeRootView:(RCTRootView *)rootView];
+  };
 
   configuration.sourceURLForBridge = ^NSURL *_Nullable(RCTBridge *_Nonnull bridge)
   {
     return [weakSelf.delegate sourceURLForBridge:bridge];
   };
-
-  configuration.hostDidStartBlock = ^(RCTHost *_Nonnull host) {
-    [weakSelf hostDidStart:host];
-  };
-
-  configuration.hostDidReceiveJSErrorStackBlock =
-      ^(RCTHost *_Nonnull host,
-        NSArray<NSDictionary<NSString *, id> *> *_Nonnull stack,
-        NSString *_Nonnull message,
-        NSUInteger exceptionId,
-        BOOL isFatal) {
-        [weakSelf host:host didReceiveJSErrorStack:stack message:message exceptionId:exceptionId isFatal:isFatal];
-      };
 
   if ([self respondsToSelector:@selector(extraModulesForBridge:)]) {
     configuration.extraModulesForBridge = ^NSArray<id<RCTBridgeModule>> *_Nonnull(RCTBridge *_Nonnull bridge)
@@ -241,22 +198,27 @@
     };
   }
 
-  return [[RCTRootViewFactory alloc] initWithConfiguration:configuration andTurboModuleManagerDelegate:self];
+  return [[RCTRootViewFactory alloc] initWithTurboModuleDelegate:self hostDelegate:self configuration:configuration];
 }
+
 
 #pragma mark - Feature Flags
 
-class RCTAppDelegateBridgelessFeatureFlags : public facebook::react::ReactNativeFeatureFlagsDefaults {
+class RCTAppDelegateBridgelessFeatureFlags : public ReactNativeFeatureFlagsDefaults {
  public:
-  bool useModernRuntimeScheduler() override
+  bool enableBridgelessArchitecture() override
   {
     return true;
   }
-  bool enableMicrotasks() override
+  bool enableFabricRenderer() override
   {
     return true;
   }
-  bool batchRenderingUpdatesInEventLoop() override
+  bool useTurboModules() override
+  {
+    return true;
+  }
+  bool useNativeViewConfigsInBridgelessMode() override
   {
     return true;
   }
@@ -264,9 +226,10 @@ class RCTAppDelegateBridgelessFeatureFlags : public facebook::react::ReactNative
 
 - (void)_setUpFeatureFlags
 {
-  if ([self.delegate bridgelessEnabled]) {
-    facebook::react::ReactNativeFeatureFlags::override(std::make_unique<RCTAppDelegateBridgelessFeatureFlags>());
+  if ([self bridgelessEnabled]) {
+    ReactNativeFeatureFlags::override(std::make_unique<RCTAppDelegateBridgelessFeatureFlags>());
   }
 }
+
 
 @end
