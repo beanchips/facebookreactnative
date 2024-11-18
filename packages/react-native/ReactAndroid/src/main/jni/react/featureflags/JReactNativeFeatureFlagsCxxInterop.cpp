@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- * @generated SignedSource<<9c1572172189f9f9ded86a9fdb1cb021>>
+ * @generated SignedSource<<ab407548dc6f642a4f641f18c2bab987>>
  */
 
 /**
@@ -156,6 +156,18 @@ class ReactNativeFeatureFlagsProviderHolder
   bool enableLayoutAnimationsOnIOS() override {
     static const auto method =
         getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("enableLayoutAnimationsOnIOS");
+    return method(javaProvider_);
+  }
+
+  bool enableLineHeightCenteringOnAndroid() override {
+    static const auto method =
+        getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("enableLineHeightCenteringOnAndroid");
+    return method(javaProvider_);
+  }
+
+  bool enableLineHeightCenteringOnIOS() override {
+    static const auto method =
+        getReactNativeFeatureFlagsProviderJavaClass()->getMethod<jboolean()>("enableLineHeightCenteringOnIOS");
     return method(javaProvider_);
   }
 
@@ -425,6 +437,16 @@ bool JReactNativeFeatureFlagsCxxInterop::enableLayoutAnimationsOnIOS(
   return ReactNativeFeatureFlags::enableLayoutAnimationsOnIOS();
 }
 
+bool JReactNativeFeatureFlagsCxxInterop::enableLineHeightCenteringOnAndroid(
+    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
+  return ReactNativeFeatureFlags::enableLineHeightCenteringOnAndroid();
+}
+
+bool JReactNativeFeatureFlagsCxxInterop::enableLineHeightCenteringOnIOS(
+    facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
+  return ReactNativeFeatureFlags::enableLineHeightCenteringOnIOS();
+}
+
 bool JReactNativeFeatureFlagsCxxInterop::enableLongTaskAPI(
     facebook::jni::alias_ref<JReactNativeFeatureFlagsCxxInterop> /*unused*/) {
   return ReactNativeFeatureFlags::enableLongTaskAPI();
@@ -651,6 +673,12 @@ void JReactNativeFeatureFlagsCxxInterop::registerNatives() {
       makeNativeMethod(
         "enableLayoutAnimationsOnIOS",
         JReactNativeFeatureFlagsCxxInterop::enableLayoutAnimationsOnIOS),
+      makeNativeMethod(
+        "enableLineHeightCenteringOnAndroid",
+        JReactNativeFeatureFlagsCxxInterop::enableLineHeightCenteringOnAndroid),
+      makeNativeMethod(
+        "enableLineHeightCenteringOnIOS",
+        JReactNativeFeatureFlagsCxxInterop::enableLineHeightCenteringOnIOS),
       makeNativeMethod(
         "enableLongTaskAPI",
         JReactNativeFeatureFlagsCxxInterop::enableLongTaskAPI),
