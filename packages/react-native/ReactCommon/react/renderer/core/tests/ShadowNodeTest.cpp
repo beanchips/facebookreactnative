@@ -154,6 +154,8 @@ class ShadowNodeTest : public testing::TestWithParam<bool> {
   }
 
   void SetUp() override {
+    ShadowNode::setUseRuntimeShadowNodeReferenceUpdate(true);
+
     ReactNativeFeatureFlags::override(
         std::make_unique<ShadowNodeTestFeatureFlags>(GetParam()));
   }
