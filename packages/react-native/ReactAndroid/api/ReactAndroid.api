@@ -1,6 +1,6 @@
 public abstract class com/facebook/react/BaseReactPackage : com/facebook/react/ReactPackage {
 	public fun <init> ()V
-	public fun createNativeModules (Lcom/facebook/react/bridge/ReactApplicationContext;)Ljava/util/List;
+	public final fun createNativeModules (Lcom/facebook/react/bridge/ReactApplicationContext;)Ljava/util/List;
 	public fun createViewManagers (Lcom/facebook/react/bridge/ReactApplicationContext;)Ljava/util/List;
 	public abstract fun getModule (Ljava/lang/String;Lcom/facebook/react/bridge/ReactApplicationContext;)Lcom/facebook/react/bridge/NativeModule;
 	public abstract fun getReactModuleInfoProvider ()Lcom/facebook/react/module/model/ReactModuleInfoProvider;
@@ -342,6 +342,7 @@ public abstract class com/facebook/react/ReactNativeHost {
 public abstract interface class com/facebook/react/ReactPackage {
 	public abstract fun createNativeModules (Lcom/facebook/react/bridge/ReactApplicationContext;)Ljava/util/List;
 	public abstract fun createViewManagers (Lcom/facebook/react/bridge/ReactApplicationContext;)Ljava/util/List;
+	public fun getModule (Ljava/lang/String;Lcom/facebook/react/bridge/ReactApplicationContext;)Lcom/facebook/react/bridge/NativeModule;
 }
 
 public abstract interface class com/facebook/react/ReactPackageLogger {
@@ -422,10 +423,6 @@ public class com/facebook/react/ReactRootView : android/widget/FrameLayout, com/
 
 public abstract interface class com/facebook/react/ReactRootView$ReactRootViewEventListener {
 	public abstract fun onAttachedToReactInstance (Lcom/facebook/react/ReactRootView;)V
-}
-
-public abstract class com/facebook/react/TurboReactPackage : com/facebook/react/BaseReactPackage {
-	public fun <init> ()V
 }
 
 public abstract interface class com/facebook/react/ViewManagerOnDemandReactPackage {
@@ -2960,11 +2957,9 @@ public abstract interface annotation class com/facebook/react/module/annotations
 public final class com/facebook/react/module/model/ReactModuleInfo {
 	public static final field Companion Lcom/facebook/react/module/model/ReactModuleInfo$Companion;
 	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZZZ)V
-	public fun <init> (Ljava/lang/String;Ljava/lang/String;ZZZZZ)V
 	public final fun canOverrideExistingModule ()Z
 	public static final fun classIsTurboModule (Ljava/lang/Class;)Z
 	public final fun className ()Ljava/lang/String;
-	public final fun hasConstants ()Z
 	public final fun isCxxModule ()Z
 	public final fun isTurboModule ()Z
 	public final fun name ()Ljava/lang/String;
